@@ -1,4 +1,3 @@
-import { NuxtImg } from '../.nuxt/components';
 <script setup lang="ts"></script>
 
 <template>

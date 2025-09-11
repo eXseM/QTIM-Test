@@ -3,6 +3,6 @@ export interface Post {
   title: string;
   image: string;
   description: string;
-  preview?: string;
-  createdAt?: string;
+  preview: string;
+  createdAt: string;
 }
