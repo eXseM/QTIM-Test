@@ -1,0 +1,32 @@
+/* TT Commons */
+@font-face {
+  font-family: 'TT Commons';
+  src: url('~/assets/fonts/tt-commons/TTCommons-Regular.woff2') format('woff2'),
+       url('~/assets/fonts/tt-commons/TTCommons-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Commons';
+  src: url('~/assets/fonts/tt-commons/TTCommons-Medium.woff2') format('woff2'),
+       url('~/assets/fonts/tt-commons/TTCommons-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Commons';
+  src: url('~/assets/fonts/tt-commons/TTCommons-Bold.woff2') format('woff2'),
+       url('~/assets/fonts/tt-commons/TTCommons-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Глобальные стили */
+body {
+  font-family: 'TT Commons', sans-serif;
+}
