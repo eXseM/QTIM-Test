@@ -1,9 +1,20 @@
 <script setup lang="ts">
 import { usePostsStore } from "~/stores/posts";
+import { useRandomImage } from "~/composables/useRandomImage";
 import type { Post } from "~/types/post";
 
 const store = usePostsStore();
 const route = useRoute();
+
+const postImages = ref<Record<string, string>>({});
+
+const getPostImage = (postId: string): string => {
+  if (!postImages.value[postId]) {
+    const { randomImage } = useRandomImage(`post-${postId}`);
+    postImages.value[postId] = randomImage.value;
+  }
+  return postImages.value[postId];
+};
 
 const currentPage = computed(() => {
   const page = Number(route.query.page) || 1;
@@ -35,6 +46,12 @@ watchEffect(() => {
   }
   if (paginatedPosts.value) {
     store.setPosts(paginatedPosts.value);
+    paginatedPosts.value.forEach((post) => {
+      if (!postImages.value[post.id]) {
+        const { randomImage } = useRandomImage(`post-${post.id}`);
+        postImages.value[post.id] = randomImage.value;
+      }
+    });
   }
   store.setLoading(pending.value);
   store.setError(error.value?.message || null);
@@ -96,12 +113,15 @@ const nextPage = (): void => {
         :to="`/articles/${post.id}`"
         class="flex flex-col gap-4group"
       >
-        <img
-          :src="post.image"
-          class="w-full h-80 object-cover rounded-lg"
-          :alt="post.image"
-        />
-        <h2 class="font-medium text-lg">{{ post.title }}</h2>
+        <ClientOnly>
+          <NuxtImg
+            :src="getPostImage(post.id)"
+            class="w-full h-80 object-cover rounded-lg"
+            :alt="post.title"
+            loading="lazy"
+          />
+          <h2 class="font-medium text-lg">{{ post.title }}</h2>
+        </ClientOnly>
       </NuxtLink>
     </div>
 
